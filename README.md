@@ -1,2 +1,2 @@
 # PasswordManger
-This code helps to track which password was used for which website and generates strong passwords.
+This code tracks which password was used for each website and generates strong passwords. The generated password is automatically copied, allowing you to paste it wherever you need.
