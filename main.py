@@ -1,11 +1,9 @@
-
 import random
 from tkinter import *
-
-from tkinter import  messagebox
+import pyperclip
+from tkinter import messagebox
 from random import randint, choice, shuffle
 import tkinter as tk
-
 
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
            'W', 'X', 'Y', 'Z']
@@ -29,6 +27,7 @@ def passwordGenerator():
     shuffle(password_list)
     password = "".join(password_list)
     password_entry.insert(0, password)
+    pyperclip.copy(password)
 
 
 def save():
@@ -36,9 +35,16 @@ def save():
     email = email_entry.get()
     website = website_entry.get()
     if len(password) == 0 or len(website) == 0:
-        messagebox.showwarning("Please some field is empty ")
+        messagebox.showwarning("Empty field", "Opps. Some field Is empty")
     else:
-        messagebox.askokcancel("Did you want to save")
+        is_ok = messagebox.askokcancel("Save data",
+                                       f"Are you that you want to save these data:\n website :{website}\n  "
+                                       f" email :{email}\n   "
+                                       f"password: {password}\n")
+        if is_ok:
+            with open("data.txt", 'a') as data:
+                data.write(f'{website} | {email} | {password} \n')
+
 
 window = tk.Tk()
 window.title("Password Manager")
@@ -65,7 +71,7 @@ website_entry.grid(row=1, column=1, columnspan=2)
 website_entry.focus()
 
 email_entry = Entry(width=36)
-email_entry.grid(row=2, column=1,  columnspan=2)
+email_entry.grid(row=2, column=1, columnspan=2)
 email_entry.insert(0, "Thoravgs4@gmail.com")
 
 password_entry = Entry(width=21)
@@ -73,7 +79,6 @@ password_entry.grid(row=3, column=1)
 
 generate_password_button = Button(text="Generate Password", command=passwordGenerator)
 generate_password_button.grid(row=3, column=2)
-add_button = Button(text="Add", width=36,command=save)
+add_button = Button(text="Add", width=36, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
 window.mainloop()
-
