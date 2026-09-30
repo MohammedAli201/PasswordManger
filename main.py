@@ -1,8 +1,10 @@
-import random
 from tkinter import *
 import pyperclip
 from tkinter import messagebox
-from random import randint, choice, shuffle
+from secrets import SystemRandom
+
+_rng = SystemRandom()
+randint, choice, shuffle = _rng.randint, _rng.choice, _rng.shuffle
 import tkinter as tk
 
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
@@ -47,7 +49,7 @@ def save():
 
 
 window = tk.Tk()
-window.title("Password Manager")
+window.title("Password Manager — learning demo")
 window.config(padx=70, pady=70)
 
 canvas = Canvas(height=200, width=200)
